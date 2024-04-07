@@ -4,8 +4,8 @@ const createError = require("http-errors");
 const Coffee = require("./../models/coffee.model");
 
 exports.postCreateCoffee = async (req, res, next) => {
-  const { name, price, description } = req.body;
-  const newCoffee = new Coffee({ name, price, description });
+  const { name, price, description, image } = req.body;
+  const newCoffee = new Coffee({ name, price, description, image });
   const coffee = await newCoffee.save();
   return res.status(201).json({
     msg: "Coffee created successfully",
@@ -14,11 +14,11 @@ exports.postCreateCoffee = async (req, res, next) => {
 };
 
 exports.putUpdateCoffee = async (req, res, next) => {
-  const { name, price, description } = req.body;
+  const { name, price, description, image } = req.body;
   const coffeeId = req.params.coffeeId;
   const coffee = await Coffee.findByIdAndUpdate(
     coffeeId,
-    { name, price, description },
+    { name, price, description, image },
     { new: true }
   );
   if (!coffee) {
